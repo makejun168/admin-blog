@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const path = require('path');
@@ -24,6 +24,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const autoprefixer = require('autoprefixer');
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -338,8 +339,7 @@ module.exports = function(webpackEnv) {
                 cache: true,
                 formatter: require.resolve('react-dev-utils/eslintFormatter'),
                 eslintPath: require.resolve('eslint'),
-                resolvePluginsRelativeTo: __dirname,
-                
+                resolvePluginsRelativeTo: __dirname
               },
               loader: require.resolve('eslint-loader'),
             },
@@ -374,6 +374,7 @@ module.exports = function(webpackEnv) {
                 ),
                 
                 plugins: [
+                  ["import", { libraryName: "antd", style: true }],
                   [
                     require.resolve('babel-plugin-named-asset-import'),
                     {
@@ -384,7 +385,8 @@ module.exports = function(webpackEnv) {
                         },
                       },
                     },
-                  ],
+                  ]
+                  // ["import", { libraryName: "antd", style: true }]
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -444,7 +446,44 @@ module.exports = function(webpackEnv) {
             },
             {
               test: lessRegex,
-              use: ['css-loader', 'less-loader']
+              // use: ['style-loader', 'postcss-loader', 'less-loader']
+              use: [
+                require.resolve('style-loader'),
+                {
+                  loader: require.resolve('css-loader'),
+                  options: {
+                    importLoaders: 1
+                  }
+                },
+                {
+                  loader: require.resolve('postcss-loader'),
+                  options: {
+                    ident: 'postcss',
+                    plugins: () => [
+                      require('postcss-flexbugs-fixes'),
+                      autoprefixer({
+                        browsers: [
+                          '>1%',
+                          'last 4 versions',
+                          'Firefox ESR',
+                          'not ie < 9'
+                        ],
+                        flexbox: 'no-2009'
+                      })
+                    ]
+                  }
+                },
+                {
+                  loader: require.resolve('less-loader'),
+                  options: {
+                    modules: false,
+                    javascriptEnabled: true,
+                    modifyVars: {
+                      "@primary-color": "f9c700"
+                    }
+                  }
+                }
+              ]
             },
             // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
             // using the extension .module.css
