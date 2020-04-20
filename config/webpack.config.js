@@ -444,15 +444,7 @@ module.exports = function(webpackEnv) {
             },
             {
               test: lessRegex,
-              use: [
-                require.resolve('style-loader'),
-                {
-                  loader: require.resolve('css-loader'),
-                  options: {
-                    importLoaders: 1
-                  }
-                }
-              ],
+              use: ['css-loader', 'less-loader']
             },
             // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
             // using the extension .module.css
