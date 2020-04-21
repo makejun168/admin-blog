@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './common/index.less';
-import App from './App';
+import Admin from './admin';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <App />,
+  <Admin />,
   document.getElementById('root')
 );
 
