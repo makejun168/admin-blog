@@ -5,6 +5,7 @@ import Topic from "../router_demo/Topic";
 import About from "../router_demo/About";
 import Main from "./Main";
 import Home from "./Home";
+import NoMatch from './NoMatch'
 
 export default class MyRouter extends React.Component {
   render() {
@@ -22,7 +23,7 @@ export default class MyRouter extends React.Component {
             ></Route>
             <Route path="/about" component={About}></Route>
             <Route path="/topic" component={Topic}></Route>
-            <Route path="/topic" component={Topic}></Route>
+            <Route component={NoMatch}></Route>
           </Switch>
         </Home>
       </Router>
