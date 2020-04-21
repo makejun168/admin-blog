@@ -20,7 +20,55 @@ const menuList = [
         key: '/admin/ui/loading',
       },
     ]
-  }
+  },
+  {
+    title: 'Form',
+    key: '/admin/form',
+    children: [
+      {
+        title: 'Form',
+        key: '/admin/form/page',
+      },
+    ]
+  },
+  {
+    title: 'Table',
+    key: '/admin/table',
+    children: [
+      {
+        title: 'Table',
+        key: '/admin/table/page',
+      },
+    ]
+  },
+  {
+    title: 'Editor',
+    key: '/admin/editor'
+  },
+  {
+    title: 'City',
+    key: '/admin/city'
+  },
+  {
+    title: 'Order',
+    key: '/admin/order'
+  },
+  {
+    title: 'Employment',
+    key: '/admin/employment'
+  },
+  {
+    title: 'Bicycle',
+    key: '/admin/bicycle'
+  },
+  {
+    title: 'Icon',
+    key: '/admin/icon'
+  },
+  {
+    title: 'Permissions',
+    key: '/admin/permissions'
+  },
 ];
 
 export default menuList;

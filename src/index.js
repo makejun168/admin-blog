@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import './common/index.less';
-import Admin from './admin';
+// import Admin from './admin';
+// import Home from './pages/router_demo/Home'
+// import MyRouter from './pages/router_demo2/router'
+import MyRouter from './pages/router_demo3/router'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <Admin />,
+  <MyRouter />,
   document.getElementById('root')
 );
 

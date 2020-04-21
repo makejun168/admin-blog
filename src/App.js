@@ -1,17 +1,13 @@
 import React from 'react';
 // import logo from './logo.svg';
-import {Button} from 'antd';
 import './App.css';
 
 export default class App extends React.Component {
-  handleClick = () => {
-    console.log(123)
-  }
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <Button type="primary" onClick={this.handleClick}>点击一下</Button>
+          
           {/* <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
