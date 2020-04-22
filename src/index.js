@@ -5,11 +5,11 @@ import './common/index.less';
 // import Admin from './admin';
 // import Home from './pages/router_demo/Home'
 // import MyRouter from './pages/router_demo2/router'
-import MyRouter from './pages/router_demo3/router'
+import IRouter from './router'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <MyRouter />,
+  <IRouter />,
   document.getElementById('root')
 );
 

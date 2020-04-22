@@ -4,13 +4,9 @@ import {Row, Col} from 'antd';
 import Header from './components/Header'
 import Footer from './components/Footer';
 import Nav from './components/Nav';
-import Home from './pages/Home';
+// import Home from './pages/Home';
 
 export default class Admin extends React.Component {
-  handleClick = () => {
-    
-  }
-
   // 栅格系统对应是 24列 一行 有 24列表
   render() {
     return (
@@ -21,7 +17,7 @@ export default class Admin extends React.Component {
         <Col span="20" className="main">
           <Header/>
           <Row className="content">
-            <Home/>
+            {this.props.children}
           </Row>
           <Footer/>
         </Col>
