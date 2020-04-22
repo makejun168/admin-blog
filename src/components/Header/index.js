@@ -7,6 +7,7 @@ import Http from '../../common/Request';
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
     this.state = {
       userName: "PoloMa",
       time: '',

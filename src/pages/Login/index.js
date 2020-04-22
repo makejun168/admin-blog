@@ -1,9 +1,7 @@
-import React from 'react';
+import React from "react";
 
 export default class Login extends React.Component {
   render() {
-    return (
-     <div>登陆</div>
-    )
+    return <div>登陆</div>;
   }
 }

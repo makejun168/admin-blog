@@ -2,9 +2,8 @@ import React from 'react';
 // import logo from './logo.svg';
 import {Row, Col} from 'antd';
 import Header from './components/Header'
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import Nav from './components/Nav';
-// import Home from './pages/Home';
 
 export default class Admin extends React.Component {
   // 栅格系统对应是 24列 一行 有 24列表
@@ -15,11 +14,11 @@ export default class Admin extends React.Component {
           <Nav/>
         </Col>
         <Col span="20" className="main">
-          <Header/>
+          <Header currentKey={this.props} />
           <Row className="content">
             {this.props.children}
           </Row>
-          <Footer/>
+          {/* <Footer/> */}
         </Col>
       </Row>
     )

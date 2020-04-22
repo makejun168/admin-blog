@@ -4,9 +4,10 @@ import App from "../App";
 import Login from "../pages/Login";
 import Admin from "../admin";
 import Home from "../pages/Home";
+import Detail from '../pages/Detail';
 import Buttons from "../pages/UI/Buttons";
 import Loading from "../pages/UI/Loading";
-import Modal from "../pages/UI/Modal";
+import ModalContainer from "../pages/UI/ModalContainer";
 import NoMatch from "../pages/NoMatch";
 
 export default class IRouter extends React.Component {
@@ -38,14 +39,14 @@ export default class IRouter extends React.Component {
                   <Route
                     exact={true}
                     path="/admin/ui/modal"
-                    component={Modal}
+                    component={ModalContainer}
                   />
                   <Route component={NoMatch} />
                 </Switch>
               </Admin>
             )}
           />
-          <Route path="/order/detail" component={Login} />
+          <Route path="/order/detail" component={Detail} />
         </App>
       </Router>
     );
