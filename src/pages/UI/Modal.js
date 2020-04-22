@@ -3,8 +3,8 @@ import { Card, Button, Modal } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 const { confirm, warning, info, error } = Modal;
 
-const ReachableContext = React.createContext();
-const UnreachableContext = React.createContext();
+// const ReachableContext = React.createContext();
+// const UnreachableContext = React.createContext();
 
 export default class ModalContainer extends React.Component {
   constructor(props) {

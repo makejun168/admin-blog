@@ -19,6 +19,10 @@ const menuList = [
         title: 'Loading',
         key: '/admin/ui/loading',
       },
+      {
+        title: 'Notification',
+        key: '/admin/ui/notification',
+      }
     ]
   },
   {
