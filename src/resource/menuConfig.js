@@ -46,8 +46,16 @@ const menuList = [
     key: "/admin/form",
     children: [
       {
-        title: "Form",
-        key: "/admin/form/page",
+        title: "Login",
+        key: "/admin/form/login",
+      },
+      {
+        title: "formDiff",
+        key: "/admin/form/detail",
+      },
+      {
+        title: "Register",
+        key: "/admin/form/register",
       },
     ],
   },
