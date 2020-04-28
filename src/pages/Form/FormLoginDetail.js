@@ -9,7 +9,7 @@ const FormLoginDetail = () => {
   };
 
   return (
-    <Card title="form login" className="card-wrap">
+    <Card style={{ width: "100%" }}>
       <Form
         name="complex-form"
         onFinish={onFinish}

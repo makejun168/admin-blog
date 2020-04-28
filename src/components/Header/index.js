@@ -37,7 +37,7 @@ export default class Header extends React.Component {
 
   componentDidMount(){
     this.getTime();
-    this.getWeatherData();
+    // this.getWeatherData();
   }
 
   render() {

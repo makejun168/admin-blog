@@ -22,6 +22,8 @@ import Carousels from "../pages/UI/Carousel";
 import FormLogin from "../pages/Form/FormLogin";
 import FormRegister from "../pages/Form/FormRegister";
 import FormLoginDetail from "../pages/Form/FormLoginDetail";
+import FormLoginInLine from "../pages/Form/FormLoginInline";
+import BaiscTable from "../pages/Table/BasicTable";
 
 export default class IRouter extends React.Component {
   render() {
@@ -83,8 +85,23 @@ export default class IRouter extends React.Component {
                   />
                   <Route
                     exact={true}
+                    path="/admin/form/loginInline"
+                    component={FormLoginInLine}
+                  />
+                  <Route
+                    exact={true}
                     path="/admin/form/register"
                     component={FormRegister}
+                  />
+                  <Route
+                    exact={true}
+                    path="/admin/table/basic"
+                    component={BaiscTable}
+                  />
+                  <Route
+                    exact={true}
+                    path="/admin/table/hight"
+                    component={BaiscTable}
                   />
                   <Route component={NoMatch} />
                 </Switch>

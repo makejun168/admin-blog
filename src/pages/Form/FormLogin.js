@@ -20,8 +20,7 @@ export default class FormLogin extends React.Component {
 
   render() {
     return (
-      <div style={{width: '100%'}}>
-        <Card title="Form basic">
+      <Card style={{ width: "100%" }}>
           <Form
             // {...layout}
             name="basic"
@@ -60,7 +59,6 @@ export default class FormLogin extends React.Component {
             </Form.Item>
           </Form>
         </Card>
-      </div>
     );
   }
 }

@@ -192,7 +192,7 @@ export default class FormRegister extends React.Component {
               <Cascader options={residences} />
             </Form.Item>
 
-            {/* <Form.Item
+            <Form.Item
               name="phone"
               label="Phone Number"
               rules={[
@@ -200,24 +200,20 @@ export default class FormRegister extends React.Component {
               ]}
             >
               <Input
-                addonBefore={this.prefixSelector}
+                addonBefore={this.prefixSelector()}
                 style={{ width: "100%" }}
               />
-            </Form.Item> */}
+            </Form.Item>
 
-            {/* <Form.Item
+            <Form.Item
               name="website"
               label="Website"
               rules={[{ required: true, message: "Please input website!" }]}
             >
-              <AutoComplete
-                options={websiteOptions}
-                onChange={onWebsiteChange}
-                placeholder="website"
-              >
-                <Input />
-              </AutoComplete>
-            </Form.Item> */}
+              <Input
+                style={{ width: "100%" }}
+              />
+            </Form.Item>
 
             <Form.Item
               label="Captcha"

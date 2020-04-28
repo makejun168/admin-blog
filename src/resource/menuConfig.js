@@ -57,6 +57,10 @@ const menuList = [
         title: "Register",
         key: "/admin/form/register",
       },
+      {
+        title: "loginInline",
+        key: "/admin/form/loginInline",
+      },
     ],
   },
   {
@@ -65,7 +69,7 @@ const menuList = [
     children: [
       {
         title: "Table",
-        key: "/admin/table/page",
+        key: "/admin/table/basic",
       },
     ],
   },
