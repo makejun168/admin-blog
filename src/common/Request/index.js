@@ -18,7 +18,11 @@ export default class Http {
     })
   }
   static get(options) {
-    console.log(options);
+    let loading;
+    if (options.data && options.data.isShowLoading !== false){
+      loading = document.getElementById('ajaxLoading');
+      loading.style.display = 'block';
+    }
     return new Promise((resolve, reject) => {
       axios({
         url: options.url,
@@ -26,6 +30,10 @@ export default class Http {
         baseURL: baseUrl,
         params: (options.data) || ''
       }).then(res => {
+        if (options.data && options.data.isShowLoading !== false){
+          loading = document.getElementById('ajaxLoading');
+          loading.style.display = 'none';
+        }
         if (res.status === 200) {
           let response = res.data;
           if (response.code === 0) {

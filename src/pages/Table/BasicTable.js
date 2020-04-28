@@ -40,7 +40,18 @@ const columns = [
   {
     title: "State",
     dataIndex: "state",
-    key: '2'
+    key: '2',
+    render(state) {
+      // 定义字典
+      let config = {
+        '1': '<。)#)))≦',
+        '2':'m( =∩王∩= )m',
+        '3': 'o(=•ェ•=)m',
+        '4': 'U•ェ•*U',
+        '5': '(*^_^*)'
+      }
+      return config[state]
+    }
   },
   {
     title: "UserName",
@@ -50,7 +61,21 @@ const columns = [
   {
     title: "Interest",
     dataIndex: "interest",
-    key: '4'
+    key: '4',
+    render(interest) {
+      // 定义字典
+      let config = {
+        '1': '游泳',
+        '2':'跳水',
+        '3': '篮球',
+        '4': '足球',
+        '5': '多人运动',
+        '6': '跳绳',
+        '7': '体操',
+        '8': '铁人三项'
+      }
+      return config[interest];
+    }
   },
   {
     title: "Birthday",
@@ -65,7 +90,10 @@ const columns = [
   {
     title: "Sex",
     dataIndex: "sex",
-    key: '7'
+    key: '7',
+    render(sex) {
+      return sex === 1? '男' : '女'
+    }
   },
   {
     title: "Time",
