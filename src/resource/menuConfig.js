@@ -71,6 +71,10 @@ const menuList = [
         title: "Table",
         key: "/admin/table/basic",
       },
+      {
+        title: "High",
+        key: "/admin/table/hight",
+      },
     ],
   },
   {

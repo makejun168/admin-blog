@@ -112,7 +112,7 @@ const columns = [
   // }
 ];
 
-export default class BaiscTable extends React.Component {
+export default class BasicTable extends React.Component {
   state = {
     selectedRowKeys: [],
     selectedRow: null,
@@ -130,7 +130,6 @@ export default class BaiscTable extends React.Component {
       this.setState({
         list: result.list,
         pagination: until.pagination(res, current => {
-          console.log(current);
           this.params.page = current;
           this.request();
         })

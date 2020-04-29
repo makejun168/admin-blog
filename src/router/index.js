@@ -23,7 +23,8 @@ import FormLogin from "../pages/Form/FormLogin";
 import FormRegister from "../pages/Form/FormRegister";
 import FormLoginDetail from "../pages/Form/FormLoginDetail";
 import FormLoginInLine from "../pages/Form/FormLoginInline";
-import BaiscTable from "../pages/Table/BasicTable";
+import BasicTable from "../pages/Table/BasicTable";
+import HightTable from "../pages/Table/HightTable";
 
 export default class IRouter extends React.Component {
   render() {
@@ -96,12 +97,12 @@ export default class IRouter extends React.Component {
                   <Route
                     exact={true}
                     path="/admin/table/basic"
-                    component={BaiscTable}
+                    component={BasicTable}
                   />
                   <Route
                     exact={true}
                     path="/admin/table/hight"
-                    component={BaiscTable}
+                    component={HightTable}
                   />
                   <Route component={NoMatch} />
                 </Switch>
