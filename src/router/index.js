@@ -31,7 +31,7 @@ import Permission from "../pages/Permission";
 import Bicycle from "../pages/Bicycle";
 import Employment from "../pages/Employment";
 import Editors from "../pages/Editors";
-import Icons from "../pages/Icons";
+import Chart from "../pages/Chart";
 
 export default class IRouter extends React.Component {
   render() {
@@ -118,8 +118,8 @@ export default class IRouter extends React.Component {
                   />
                   <Route
                     exact={true}
-                    path="/admin/icon"
-                    component={Icons}
+                    path="/admin/chart"
+                    component={Chart}
                   />
                   <Route
                     exact={true}

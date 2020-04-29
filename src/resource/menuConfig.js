@@ -98,8 +98,8 @@ const menuList = [
     key: "/admin/bicycle",
   },
   {
-    title: "Icon",
-    key: "/admin/icon",
+    title: "Chart",
+    key: "/admin/chart"
   },
   {
     title: "Permissions",
