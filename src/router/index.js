@@ -25,6 +25,13 @@ import FormLoginDetail from "../pages/Form/FormLoginDetail";
 import FormLoginInLine from "../pages/Form/FormLoginInline";
 import BasicTable from "../pages/Table/BasicTable";
 import HightTable from "../pages/Table/HightTable";
+import City from "../pages/City";
+import Order from "../pages/Order";
+import Permission from "../pages/Permission";
+import Bicycle from "../pages/Bicycle";
+import Employment from "../pages/Employment";
+import Editors from "../pages/Editors";
+import Icons from "../pages/Icons";
 
 export default class IRouter extends React.Component {
   render() {
@@ -103,6 +110,41 @@ export default class IRouter extends React.Component {
                     exact={true}
                     path="/admin/table/hight"
                     component={HightTable}
+                  />
+                  <Route
+                    exact={true}
+                    path="/admin/editor"
+                    component={Editors}
+                  />
+                  <Route
+                    exact={true}
+                    path="/admin/icon"
+                    component={Icons}
+                  />
+                  <Route
+                    exact={true}
+                    path="/admin/city"
+                    component={City}
+                  />
+                  <Route
+                    exact={true}
+                    path="/admin/order"
+                    component={Order}
+                  />
+                  <Route
+                    exact={true}
+                    path="/admin/employment"
+                    component={Employment}
+                  />
+                  <Route
+                    exact={true}
+                    path="/admin/Bicycle"
+                    component={Bicycle}
+                  />
+                  <Route
+                    exact={true}
+                    path="/admin/permissions"
+                    component={Permission}
                   />
                   <Route component={NoMatch} />
                 </Switch>
