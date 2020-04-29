@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "antd";
 import './index.less';
-import Util from '../../utils/until';
+import Util from '../../utils/util';
 import Http from '../../common/Request';
 // import Axios from "axios";
 export default class Header extends React.Component {

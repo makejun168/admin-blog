@@ -34,9 +34,9 @@ export default class Http {
           loading = document.getElementById('ajaxLoading');
           loading.style.display = 'none';
         }
-        if (res.status === 200) {
+        if (res.status == 200) {
           let response = res.data;
-          if (response.code === 0) {
+          if (response.code == 0) {
             resolve(response);
           } else {
             Modal.info({

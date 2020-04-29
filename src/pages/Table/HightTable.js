@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Card, Row, Col, Button, Modal, message, Badge } from "antd";
 import { getTableList } from "../../api";
-import until from "../../utils/until";
+import util from "../../utils/util";
 
 const columns2 = [
   {
@@ -227,7 +227,7 @@ export default class HightTable extends React.Component {
       const { result } = res;
       this.setState({
         list: result.list,
-        pagination: until.pagination(res, (current) => {
+        pagination: util.pagination(res, (current) => {
           console.log(current);
           this.params.page = current;
           this.request();

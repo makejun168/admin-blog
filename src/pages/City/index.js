@@ -1,5 +1,7 @@
 import React from "react";
 import { Card, Form, Select, Button, Table } from "antd";
+import { getOpenCity } from "../../api";
+import util from "../../utils/util";
 
 const { Option } = Select;
 
@@ -26,28 +28,28 @@ class FilterForm extends React.Component {
         onFinish={this.onFinish}
       >
         <Form.Item label="城市" name="city_id">
-          <Select placeholder="Select a option" style={{width: 80}}>
+          <Select placeholder="Select a option" style={{ width: 80 }}>
             <Option value="1">北京</Option>
             <Option value="2">深圳</Option>
             <Option value="3">上海</Option>
           </Select>
         </Form.Item>
         <Form.Item label="用车区域" name="mode">
-          <Select placeholder="全部" style={{width: 120}}>
+          <Select placeholder="全部" style={{ width: 120 }}>
             <Option value="">全部</Option>
             <Option value="2">指定停车区域模式</Option>
             <Option value="3">禁停区模式</Option>
           </Select>
         </Form.Item>
         <Form.Item label="营运模式" name="op_mode">
-          <Select placeholder="全部" style={{width: 80}}>
+          <Select placeholder="全部" style={{ width: 80 }}>
             <Option value="1">全部</Option>
             <Option value="2">自营</Option>
             <Option value="3">加盟</Option>
           </Select>
         </Form.Item>
         <Form.Item label="加盟商授权状态" name="op_mode">
-          <Select placeholder="全部" style={{width: 80}}>
+          <Select placeholder="全部" style={{ width: 80 }}>
             <Option value="1">全部</Option>
             <Option value="2">已授权</Option>
             <Option value="3">未授权</Option>
@@ -57,9 +59,7 @@ class FilterForm extends React.Component {
           <Button type="primary" htmlType="submit">
             查询
           </Button>
-          <Button type="warning">
-            重置
-          </Button>
+          <Button type="warning">重置</Button>
         </Form.Item>
       </Form>
     );
@@ -67,44 +67,74 @@ class FilterForm extends React.Component {
 }
 
 export default class City extends React.Component {
-  // 开通城市
-  openCity = () => {
+  state = {
+    list: [],
+    pagination: {},
+  };
 
+  params = {
+    page: 1
   }
+
+  componentDidMount() {
+    this.requestList();
+  }
+
+  // API LIST
+  requestList = () => {
+    getOpenCity({page: this.params.page}).then(res => {
+      console.log(res);
+      this.setState({
+        list: res.result.item_list,
+        pagination: util.pagination(res, current => {
+          this.params.page = current;
+          this.request();
+        })
+      })
+    })
+  };
+
+  // 开通城市
+  openCity = () => {};
   render() {
     const columns = [
       {
-        title: '城市ID',
-        dataIndex: 'id',
+        title: "城市ID",
+        dataIndex: "id",
       },
       {
-        title: '城市名称',
-        dataIndex: 'name',
+        title: "城市名称",
+        dataIndex: "name",
       },
       {
-        title: '用车模式',
-        dataIndex: 'mode',
+        title: "用车模式",
+        dataIndex: "mode",
       },
       {
-        title: '营运模式',
-        dataIndex: 'op_mode',
+        title: "营运模式",
+        dataIndex: "op_mode",
       },
       {
-        title: '授权加盟商',
-        dataIndex: 'franchisee_name',
+        title: "授权加盟商",
+        dataIndex: "franchisee_name",
       },
       {
-        title: '城市管理员',
-        dataIndex: 'city_admin',
+        title: "城市管理员",
+        dataIndex: "city_admins",
+        render: (arr) => {
+          return arr.map(item => {
+            return item.user_name;
+          }).join(', ')
+        }
       },
       {
-        title: '操作时间',
-        dataIndex: 'update_time'
+        title: "操作时间",
+        dataIndex: "update_time",
       },
       {
-        title: '操作人',
-        dataIndex: 'sys_user_name'
-      }
+        title: "操作人",
+        dataIndex: "sys_user_name",
+      },
     ];
     return (
       <div style={{ width: "100%" }}>
@@ -113,8 +143,14 @@ export default class City extends React.Component {
         </Card>
         <Card>
           <Button type="primary" onClick={this.openCity}></Button>
+          <Table
+            bordered
+            rowKey={(record) => record.id}
+            columns={columns}
+            dataSource={this.state.list}
+            pagination={this.state.pagination}
+          />
         </Card>
-        <Table columns={columns}/>
       </div>
     );
   }
