@@ -1,9 +1,51 @@
 import React from "react";
-import { Card, Form, Select, Button, Table } from "antd";
+import { Card, Form, Select, Button, Table, Modal } from "antd";
 import { getOpenCity } from "../../api";
 import util from "../../utils/util";
 
 const { Option } = Select;
+
+class OpenCityForm extends React.Component {
+  render() {
+    const formItemLayout = {
+      labelCol: {
+        span: 5,
+      },
+      wrapperCol: {
+        span: 10,
+      },
+    };
+    // horizontal
+    return (
+      <Form layout={"horizontal"}>
+        <Form.Item label="城市" {...formItemLayout}>
+          <Select placeholder="Select a option">
+            <Option value="1">北京</Option>
+            <Option value="2">深圳</Option>
+            <Option value="3">上海</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="营运模式" {...formItemLayout}>
+          <Select placeholder="Select a option">
+            <Option value="1">自营</Option>
+            <Option value="2">加盟</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item label="用车模式" {...formItemLayout}>
+          <Select placeholder="Select a option">
+            <Option value="1">指定停车点</Option>
+            <Option value="2">禁停区</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item {...formItemLayout}>
+          <Button type="primary" htmlType="submit">
+            Search
+          </Button>
+        </Form.Item>
+      </Form>
+    );
+  }
+}
 
 class FilterForm extends React.Component {
   formRef = React.createRef();
@@ -73,29 +115,40 @@ export default class City extends React.Component {
   };
 
   params = {
-    page: 1
-  }
+    page: 1,
+  };
 
   componentDidMount() {
-    this.requestList();
+    this.request();
   }
 
   // API LIST
-  requestList = () => {
-    getOpenCity({page: this.params.page}).then(res => {
+  request = () => {
+    getOpenCity({ page: this.params.page }).then((res) => {
       console.log(res);
       this.setState({
         list: res.result.item_list,
-        pagination: util.pagination(res, current => {
+        pagination: util.pagination(res, (current) => {
           this.params.page = current;
           this.request();
-        })
-      })
-    })
+        }),
+      });
+    });
+  };
+
+  // 新增城市
+  handleSubmit = () => {
+    this.setState({
+      showModal: false,
+    });
   };
 
   // 开通城市
-  openCity = () => {};
+  openCity = () => {
+    this.setState({
+      showModal: true,
+    });
+  };
   render() {
     const columns = [
       {
@@ -122,10 +175,12 @@ export default class City extends React.Component {
         title: "城市管理员",
         dataIndex: "city_admins",
         render: (arr) => {
-          return arr.map(item => {
-            return item.user_name;
-          }).join(', ')
-        }
+          return arr
+            .map((item) => {
+              return item.user_name;
+            })
+            .join(", ");
+        },
       },
       {
         title: "操作时间",
@@ -142,7 +197,11 @@ export default class City extends React.Component {
           <FilterForm></FilterForm>
         </Card>
         <Card>
-          <Button type="primary" onClick={this.openCity}></Button>
+          <Button type="primary" onClick={this.openCity}>
+            OpenCity
+          </Button>
+        </Card>
+        <Card>
           <Table
             bordered
             rowKey={(record) => record.id}
@@ -150,6 +209,18 @@ export default class City extends React.Component {
             dataSource={this.state.list}
             pagination={this.state.pagination}
           />
+          <Modal
+            title="open city"
+            visible={this.state.showModal}
+            onOk={this.handleSubmit}
+            onCancel={() => {
+              this.setState({
+                showModal: false,
+              });
+            }}
+          >
+            <OpenCityForm />
+          </Modal>
         </Card>
       </div>
     );
