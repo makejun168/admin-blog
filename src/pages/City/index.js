@@ -1,51 +1,9 @@
 import React from "react";
-import { Card, Form, Select, Button, Table, Modal } from "antd";
-import { getOpenCity } from "../../api";
+import { Card, Form, Select, Button, Table, Modal, message } from "antd";
+import { getOpenCity, addOpenCity } from "../../api";
 import util from "../../utils/util";
 
 const { Option } = Select;
-
-class OpenCityForm extends React.Component {
-  render() {
-    const formItemLayout = {
-      labelCol: {
-        span: 5,
-      },
-      wrapperCol: {
-        span: 10,
-      },
-    };
-    // horizontal
-    return (
-      <Form layout={"horizontal"}>
-        <Form.Item label="城市" {...formItemLayout}>
-          <Select placeholder="Select a option">
-            <Option value="1">北京</Option>
-            <Option value="2">深圳</Option>
-            <Option value="3">上海</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item label="营运模式" {...formItemLayout}>
-          <Select placeholder="Select a option">
-            <Option value="1">自营</Option>
-            <Option value="2">加盟</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item label="用车模式" {...formItemLayout}>
-          <Select placeholder="Select a option">
-            <Option value="1">指定停车点</Option>
-            <Option value="2">禁停区</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item {...formItemLayout}>
-          <Button type="primary" htmlType="submit">
-            Search
-          </Button>
-        </Form.Item>
-      </Form>
-    );
-  }
-}
 
 class FilterForm extends React.Component {
   formRef = React.createRef();
@@ -58,6 +16,10 @@ class FilterForm extends React.Component {
 
   onFinish = (values) => {
     console.log(values);
+  };
+
+  getFormData = () => {
+    console.log(this.formRef.current.getFieldValue());
   };
 
   render() {
@@ -84,21 +46,22 @@ class FilterForm extends React.Component {
           </Select>
         </Form.Item>
         <Form.Item label="营运模式" name="op_mode">
-          <Select placeholder="全部" style={{ width: 80 }}>
+          <Select placeholder="全部" style={{ width: 120 }}>
             <Option value="1">全部</Option>
             <Option value="2">自营</Option>
             <Option value="3">加盟</Option>
           </Select>
         </Form.Item>
-        <Form.Item label="加盟商授权状态" name="op_mode">
-          <Select placeholder="全部" style={{ width: 80 }}>
+        <Form.Item label="加盟商授权状态" name="status">
+          <Select placeholder="全部" style={{ width: 120 }}>
             <Option value="1">全部</Option>
             <Option value="2">已授权</Option>
             <Option value="3">未授权</Option>
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          {/* htmlType="submit"  */}
+          <Button type="primary" onClick={this.getFormData}>
             查询
           </Button>
           <Button type="warning">重置</Button>
@@ -109,9 +72,11 @@ class FilterForm extends React.Component {
 }
 
 export default class City extends React.Component {
+  openFormRef = React.createRef();
   state = {
     list: [],
     pagination: {},
+    showModal: false,
   };
 
   params = {
@@ -136,20 +101,38 @@ export default class City extends React.Component {
     });
   };
 
-  // 新增城市
-  handleSubmit = () => {
+  setVisible = (visible) => {
     this.setState({
-      showModal: false,
+      showModal: visible,
     });
   };
 
   // 开通城市
   openCity = () => {
-    this.setState({
-      showModal: true,
+    this.setVisible(true);
+  };
+
+  // 新增城市
+  handleSubmit = () => {
+    let data = this.openFormRef.current.getFieldValue();
+    console.log(data);
+    addOpenCity().then((res) => {
+      // console.log(res);
+      message.success(res.result);
+      this.setVisible(false);
+      this.request();
     });
   };
+
   render() {
+    const formItemLayout = {
+      labelCol: {
+        span: 5
+      },
+      wrapperCol: {
+        span: 10,
+      },
+    };
     const columns = [
       {
         title: "城市ID",
@@ -162,10 +145,16 @@ export default class City extends React.Component {
       {
         title: "用车模式",
         dataIndex: "mode",
+        render(target) {
+          return target === 1 ? "停车点" : "禁停区";
+        },
       },
       {
         title: "营运模式",
         dataIndex: "op_mode",
+        render(target) {
+          return target === 1 ? "自营" : "加盟";
+        },
       },
       {
         title: "授权加盟商",
@@ -185,6 +174,7 @@ export default class City extends React.Component {
       {
         title: "操作时间",
         dataIndex: "update_time",
+        render: util.formateDate
       },
       {
         title: "操作人",
@@ -211,15 +201,50 @@ export default class City extends React.Component {
           />
           <Modal
             title="open city"
+            forceRender={true}
             visible={this.state.showModal}
             onOk={this.handleSubmit}
-            onCancel={() => {
-              this.setState({
-                showModal: false,
-              });
-            }}
+            onCancel={() => this.setVisible(false)}
           >
-            <OpenCityForm />
+            <Form
+              ref={this.openFormRef}
+              onFinish={this.handleSubmit}
+              layout={"horizontal"}
+            >
+              <Form.Item label="城市" {...formItemLayout} name="city">
+                <Select placeholder="Select a option">
+                  <Option value="1">北京</Option>
+                  <Option value="2">深圳</Option>
+                  <Option value="3">上海</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label="营运模式" {...formItemLayout} name="mode">
+                <Select placeholder="Select a option">
+                  <Option value="1">自营</Option>
+                  <Option value="2">加盟</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item label="用车模式" {...formItemLayout} name="op_mode">
+                <Select placeholder="Select a option">
+                  <Option value="1">指定停车点</Option>
+                  <Option value="2">禁停区</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item {...formItemLayout}>
+                {/* htmlType="submit" */}
+                <Button type="primary" onClick={this.handleSubmit}>
+                  Add
+                </Button>
+                <Button
+                  type="danger"
+                  onClick={() => {
+                    this.openFormRef.current.resetFields();
+                  }}
+                >
+                  reset
+                </Button>
+              </Form.Item>
+            </Form>
           </Modal>
         </Card>
       </div>

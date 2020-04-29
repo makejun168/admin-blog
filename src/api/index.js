@@ -8,3 +8,4 @@ export const getWeatherData = Http.jsonp({url: 'http://api.map.baidu.com/telemat
 export const getTableList = params => Http.get({url: '/table/list', data: params});
 
 export const getOpenCity = params => Http.get({url: '/open_city', data: params});
+export const addOpenCity = params => Http.get({url: '/city/open', data: params});
