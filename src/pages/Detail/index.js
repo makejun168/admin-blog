@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import { Form, Input, Modal, Button } from "antd";
-import "antd/dist/antd.css";
-import "./index.css";
 
 const Demo = () => {
   const [form] = Form.useForm();
