@@ -309,7 +309,7 @@ export default class HightTable extends React.Component {
             "3": <Badge status="default" />,
             "4": <Badge status="processing" />,
             "5": <Badge status="warning" />,
-            "6": <Badge count={5}><a href="#" alt='' className="head-example" /></Badge>,
+            "6": <Badge count={5}><a href="''" alt='' className="head-example"/></Badge>,
             "7": "体操",
             "8": "铁人三项",
           };

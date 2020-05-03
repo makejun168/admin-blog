@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Form, Input, Modal, Button, Card } from "antd";
-import { getOrderList, getOrderDetail } from "../../api";
+import React from "react";
+import { Form, Card } from "antd";
+import { getOrderDetail } from "../../api";
 
 class Detail extends React.Component {
 	state = {
@@ -9,7 +9,6 @@ class Detail extends React.Component {
 
 	getOrderInfo = (orderId) => {
 		getOrderDetail().then((res) => {
-			console.log(res);
 			this.setState({
 				orderInfo: res.result,
 			});
@@ -18,7 +17,7 @@ class Detail extends React.Component {
 
 	componentDidMount() {
 		let orderId = this.props.match.params.orderId;
-		console.log(orderId);
+		console.log('props.match.params', orderId);
 		this.getOrderInfo(orderId);
 	}
 
@@ -27,8 +26,8 @@ class Detail extends React.Component {
 		return (
 			<div>
 				<div id="orderDetailMap"></div>
-				<Card title="基础信息">
-					<Form layout="horizontal" style={{margin: '10px'}}>
+				<Card title="基础信息" style={{marginBottom: '10px'}}>
+					<Form layout="horizontal">
 						<Form.Item label="车辆编号">{orderInfo.bike_sn}</Form.Item>
 						<Form.Item label="用车模式">
 							{orderInfo.mode === 1 ? "服务区" : "停车点"}
