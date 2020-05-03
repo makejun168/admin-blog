@@ -88,7 +88,7 @@ export default class Order extends React.Component {
 			Modal.info({
 				title: '提示',
 				content: '请选择一条订单进行结束'
-			})
+			});
 			return ;
 		}
 		window.location.href = `#/common/order/detail/${id}`;
