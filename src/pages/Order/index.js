@@ -39,7 +39,6 @@ export default class Order extends React.Component {
 				content: '请选择一条订单进行结束'
 			})
 			return;
-			return;
 		}
 		const {id} = this.state.selectedRow[0];
 		getBikeInfo({ orderId: id }).then((res) => {
@@ -68,7 +67,6 @@ export default class Order extends React.Component {
 
 	request = () => {
 		getOrderList({ page: this.params.page }).then((res) => {
-			// console.log(res);
 			const { result } = res;
 			if (result) {
 				this.setState({
@@ -82,6 +80,20 @@ export default class Order extends React.Component {
 		});
 	};
 
+
+	openOrderDetail = () => {
+		console.log(this.state.selectedRow);
+		const {id} = this.state.selectedRow[0];
+		if (id === null) {
+			Modal.info({
+				title: '提示',
+				content: '请选择一条订单进行结束'
+			})
+			return ;
+		}
+		window.location.href = `#/common/order/detail/${id}`;
+	}
+
 	render() {
 		const rowSelection = {
 			// 'radio'
@@ -91,9 +103,6 @@ export default class Order extends React.Component {
 				this.setState({
 					selectedRowKeys: selectedRowKeys,
 					selectedRow: selectedRows,
-				}, () => {
-					console.log(this.state.selectedRow);
-					console.log(this.state.selectedRowKeys);
 				});
 			},
 		};
@@ -125,7 +134,7 @@ export default class Order extends React.Component {
 				title: "行驶时长",
 				dataIndex: "total_time",
 				render: (total_time) => {
-					return distance / 1000 + 'km'
+					return total_time / 1000 + 'km'
 				}
 			},
 			{
@@ -155,7 +164,7 @@ export default class Order extends React.Component {
 					<FilterForm></FilterForm>
 				</Card>
 				<Card>
-					<Button>订单详情</Button>
+					<Button type="primary" onClick={this.openOrderDetail}>订单详情</Button>
 					<Button type="danger" onClick={this.handleConfirm}>
 						结束订单
 					</Button>
