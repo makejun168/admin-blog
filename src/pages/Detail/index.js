@@ -51,14 +51,14 @@ class Detail extends React.Component {
       let last = positionList[positionList.length - 1];
       startPoint = new window.BMap.Point(first.lon, first.lat);
       endPoint = new window.BMap.Point(last.lon, last.lat);
-			let startIcon = new window.BMap.Icon("start.png", new window.BMap.Size(36, 42), {
-				imageSize: new window.BMap.Size(36, 42),
-				anchor: new window.BMap.Size(36, 42),
-      });
-      let endIcon = new window.BMap.Icon("end.png", new window.BMap.Size(36, 42), {
-				imageSize: new window.BMap.Size(36, 42),
-				anchor: new window.BMap.Size(36, 42),
-      });
+			// let startIcon = new window.BMap.Icon("start.png", new window.BMap.Size(36, 42), {
+			// 	imageSize: new window.BMap.Size(36, 42),
+			// 	anchor: new window.BMap.Size(36, 42),
+      // });
+      // let endIcon = new window.BMap.Icon("end.png", new window.BMap.Size(36, 42), {
+			// 	imageSize: new window.BMap.Size(36, 42),
+			// 	anchor: new window.BMap.Size(36, 42),
+      // });
       // 依赖于 marker
       // {icon: startIcon}
       // {icon: endIcon}

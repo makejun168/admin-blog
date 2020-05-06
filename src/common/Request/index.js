@@ -34,8 +34,10 @@ export default class Http {
           loading = document.getElementById('ajaxLoading');
           loading.style.display = 'none';
         }
+        // eslint-disable-next-line
         if (res.status == 200) {
           let response = res.data;
+          // eslint-disable-next-line
           if (response.code == 0) {
             resolve(response);
           } else {

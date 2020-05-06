@@ -1,3 +1,7 @@
+import React from "react";
+import { Select } from "antd";
+const { Option } = Select;
+
 export default {
   formateDate(time) {
     if (!time) {
@@ -7,7 +11,9 @@ export default {
     return (
       date.getFullYear() +
       "-" +
-      (date.getMonth() + 1  < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1) +
+      (date.getMonth() + 1 < 10
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1) +
       "-" +
       (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
       " " +
@@ -28,8 +34,22 @@ export default {
       total: data.result.total_count,
       pageSize: data.result.page_size,
       showTotal: () => {
-        return `共${data.result.total_count}条`
-      }
+        return `共${data.result.total_count}条`;
+      },
     };
+  },
+  getOptionList(data) {
+    if (!data) {
+      return [];
+    }
+    let options = [];
+    data.forEach((item) => {
+      options.push(
+        <Option value={item.value} key={item.value}>
+          {item.name}
+        </Option>
+      );
+    });
+    return options;
   },
 };
