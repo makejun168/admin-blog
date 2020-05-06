@@ -52,4 +52,9 @@ export default {
     });
     return options;
   },
+  updateSelectedItem(selectedRowKeys) {
+    this.setState({
+      selectedRowKeys
+    })
+  }
 };

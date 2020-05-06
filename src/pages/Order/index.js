@@ -1,8 +1,9 @@
 import React from "react";
-import { Card, Form, Button, Table, Modal, message } from "antd";
+import { Card, Form, Button, Modal, message } from "antd";
 import { getOrderList, getBikeInfo, finishOrder } from "../../api";
 import util from "../../utils/util";
 import BaseForm from "../../components/BaseForm";
+import BaseTable from "../../components/BaseTable";
 
 export default class Order extends React.Component {
   state = {
@@ -10,7 +11,8 @@ export default class Order extends React.Component {
     visible: false,
     orderInfo: {},
     selectedRowKeys: null,
-    selectedRow: [],
+		selectedRow: [],
+		selectedIds: []
   };
 
   layout = "inline";
@@ -140,7 +142,7 @@ export default class Order extends React.Component {
       },
       {
         title: "车辆编号",
-        dataIndex: "bike_cn",
+        dataIndex: "bike_sn",
       },
       {
         title: "用户名",
@@ -203,13 +205,21 @@ export default class Order extends React.Component {
           </Button>
         </Card>
         <Card>
-          <Table
+          <BaseTable
+						updateSelectedItem={util.updateSelectedItem.bind(this)}
+						selectedRowKeys={this.state.selectedRowKeys}
+            rowSelectionType={'checkbox'}
+            columns={columns}
+            dataSource={this.state.list}
+            pagination={this.state.pagination}
+          />
+          {/* <Table
             rowSelection={rowSelection}
             rowKey={(record) => record.id}
             dataSource={this.state.list}
             columns={columns}
             pagination={this.state.pagination}
-          ></Table>
+          ></Table> */}
         </Card>
         <Modal
           onOk={this.handleFinishOrder}
