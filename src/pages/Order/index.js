@@ -124,17 +124,6 @@ export default class Order extends React.Component {
   };
 
   render() {
-    const rowSelection = {
-      // 'radio'
-      type: "radio",
-      selectedRowKeys: this.state.selectedRowKeys,
-      onChange: (selectedRowKeys, selectedRows) => {
-        this.setState({
-          selectedRowKeys: selectedRowKeys,
-          selectedRow: selectedRows,
-        });
-      },
-    };
     const columns = [
       {
         title: "订单编号",

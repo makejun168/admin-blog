@@ -13,4 +13,8 @@ export const addOpenCity = params => Http.get({url: '/city/open', data: params})
 export const getOrderList = params => Http.get({url: '/order/list', data: params});
 export const getBikeInfo = params => Http.get({url: '/order/ebike_info', data: params});
 export const finishOrder = params => Http.get({url: '/order/finish_order', data: params});
-export const getOrderDetail = params => Http.get({url: '/order/detail', data: params})
+export const getOrderDetail = params => Http.get({url: '/order/detail', data: params});
+export const getUserList = params => Http.get({url: '/user/list', data: params});
+export const deleteUser = params => Http.get({url: '/user/delete', data: params});
+export const editUser = params => Http.get({url: '/user/edit', data: params});
+export const addUser = params => Http.get({url: '/user/add', data: params});
