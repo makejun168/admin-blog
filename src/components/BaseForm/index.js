@@ -1,8 +1,12 @@
 import React from "react";
 import { Input, Select, Form, Button, Checkbox, Radio, DatePicker } from "antd";
+
 import util from "../../utils/util";
 
 export default class BaseForm extends React.Component {
+
+  formRef = React.createRef();
+
   initFormList = () => {
     const formList = this.props.formList;
     // 返回的 formItemList
@@ -35,7 +39,7 @@ export default class BaseForm extends React.Component {
           formItemList.push(CHECKBOX);
         } else if (item.type === "时间查询") {
           const BEGIN_TIME = (
-            <Form.Item label="开始时间" name="start_time">
+            <Form.Item label="开始时间" name="start_time" key="start_time">
               <DatePicker
                 showTime
                 format="YYYY-MM-DD HH:mm:ss"
@@ -43,7 +47,7 @@ export default class BaseForm extends React.Component {
             </Form.Item>
           );
           const END_TIME = (
-            <Form.Item label="~" colon={false} name="end_time">
+            <Form.Item label="~" colon={false} name="end_time" key="end_time">
               <DatePicker
                 showTime
                 format="YYYY-MM-DD HH:mm:ss"
@@ -63,20 +67,24 @@ export default class BaseForm extends React.Component {
     return formItemList;
   };
 
+  onReset = () => {
+    this.formRef.current.resetFields();
+  };
+
   onFinish = (data) => {
     this.props.handleSubmit(data);
   };
 
   render() {
     return (
-      <Form layout={this.props.layout} onFinish={this.onFinish}>
+      <Form ref={this.formRef} layout={this.props.layout} onFinish={this.onFinish}>
         {this.initFormList()}
         <Form.Item>
           {/* htmlType="submit"  */}
           <Button type="primary" htmlType="submit">
             查询
           </Button>
-          <Button type="warning">重置</Button>
+          <Button type="warning" onClick={this.onReset}>重置</Button>
         </Form.Item>
       </Form>
     );
