@@ -1,11 +1,21 @@
 import React from "react";
-import { Card, Button, Modal, Input, Form, Radio, Select, DatePicker, message } from "antd";
+import {
+  Card,
+  Button,
+  Modal,
+  Input,
+  Form,
+  Radio,
+  Select,
+  DatePicker,
+  message,
+} from "antd";
 import BaseForm from "../../components/BaseForm";
-import { getUserList, addUser } from "../../api";
+import { getUserList, addUser, deleteUser, editUser } from "../../api";
 import util from "../../utils/util";
 import BaseTable from "../../components/BaseTable";
 
-const {Option} = Select;
+const { Option } = Select;
 const { TextArea } = Input;
 
 export default class Employment extends React.Component {
@@ -14,7 +24,8 @@ export default class Employment extends React.Component {
     list: [],
     selectedRowKeys: null,
     visible: false,
-    type: null
+    type: null,
+    userInfo: null,
   };
 
   params = {
@@ -46,6 +57,7 @@ export default class Employment extends React.Component {
   ];
 
   handleVisible = (target) => {
+    this.modalForm.formRef.current.resetFields();
     this.setState({
       visible: target,
     });
@@ -76,17 +88,28 @@ export default class Employment extends React.Component {
   };
 
   handleSubmit = () => {
-    console.log(this.modalForm.formRef.current.getFieldValue());
-    const data = this.modalForm.formRef.current.getFieldValue();
-    addUser(data).then(res => {
-      console.log(res);
-      // eslint-disable-next-line
-      if (res.code == 0) {
-        this.handleVisible(false);
-        message.success('新增成功');
-        this.request();
-      }
-    })
+    if (this.state.type === "create") {
+      const data = this.modalForm.formRef.current.getFieldValue();
+      addUser(data).then((res) => {
+        // console.log(res);
+        // eslint-disable-next-line
+        if (res.code == 0) {
+          this.handleVisible(false);
+          message.success("新增成功");
+          this.request();
+        }
+      });
+    } else if (this.state.type === "edit") {
+      const data = this.modalForm.formRef.current.getFieldValue();
+      editUser(data).then((res) => {
+        // eslint-disable-next-line
+        if (res.code == 0) {
+          this.handleVisible(false);
+          message.success("编辑成功");
+          this.request();
+        }
+      });
+    }
   };
 
   handleOperate = (operate) => {
@@ -96,19 +119,62 @@ export default class Employment extends React.Component {
         visible: true,
         title: "创建员工",
       });
-    } else if (operate === 'delete') {
-
-    } else if (operate === 'detail') {
-      
-    } else if (operate === 'edit') {
-      
+    } else if (operate === "delete") {
+      if (this.validateRow()) {
+        const current = this.state.list.find(
+          (item) => item.id === this.state.selectedRowKeys[0]
+        );
+        Modal.confirm({
+          title: "提示",
+          content: `是否确定删除 ${current.userName}`,
+          onOk: () => {
+            deleteUser({ id: this.state.selectedRowKeys[0] }).then((res) => {
+              console.log(res);
+              // eslint-disable-next-line
+              if (res.code == 0) {
+                message.success("删除成功");
+                this.request();
+              }
+            });
+          },
+        });
+      }
+    } else if (operate === "edit") {
+      if (this.validateRow()) {
+        const current = this.state.list.find(
+          (item) => item.id === this.state.selectedRowKeys[0]
+        );
+        this.setState({
+          type: operate,
+          userInfo: current,
+          title: "编辑员工",
+          visible: true,
+        });
+        this.modalForm.formRef.current.setFieldsValue({
+          userName: current.userName,
+          sex: current.sex,
+          state: current.state,
+          address: current.address,
+        });
+      }
     }
   };
 
-  saveFormRef = (formRef ) => {
+  validateRow = () => {
+    if (!this.state.selectedRowKeys) {
+      Modal.error({
+        title: "提示",
+        content: "请选择需要编辑的选项",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  saveFormRef = (formRef) => {
     this.modalForm = formRef;
-    console.log(this.modalForm, "我要输出")
-  }
+    console.log(this.modalForm, "我要输出");
+  };
 
   componentDidMount() {
     this.request();
@@ -188,7 +254,7 @@ export default class Employment extends React.Component {
             创建员工
           </Button>
           <Button onClick={() => this.handleOperate("edit")}>编辑</Button>
-          <Button onClick={() => this.handleOperate("detail")}>员工详情</Button>
+          {/* <Button onClick={() => this.handleOperate("detail")}>员工详情</Button> */}
           <Button type="danger" onClick={() => this.handleOperate("delete")}>
             删除员工
           </Button>
@@ -211,7 +277,11 @@ export default class Employment extends React.Component {
           onCancel={() => this.handleVisible(false)}
         >
           {/* wrappedComponentRef={(inst) => this.myForm = inst} */}
-          <UserForm type={this.state.type} ref={this.saveFormRef}/>
+          <UserForm
+            userInfo={this.state.userInfo}
+            type={this.state.type}
+            ref={this.saveFormRef}
+          />
         </Modal>
       </div>
     );
@@ -222,13 +292,13 @@ class UserForm extends React.Component {
   formRef = React.createRef();
   render() {
     const formItemLayout = {
-      labelCol: {span: 5},
-      wrapperCol: {span: 19}
-    }
+      labelCol: { span: 5 },
+      wrapperCol: { span: 19 },
+    };
     return (
       <Form layout="horizontal" ref={this.formRef}>
         <Form.Item label="用户名" name="userName" {...formItemLayout}>
-          <Input></Input>
+          <Input placeholder={"请输入用户名"}></Input>
         </Form.Item>
         <Form.Item label="性别" name="sex" {...formItemLayout}>
           <Radio.Group>
@@ -245,10 +315,10 @@ class UserForm extends React.Component {
           </Select>
         </Form.Item>
         <Form.Item label="生日" name="birthday" {...formItemLayout}>
-          <DatePicker/>
+          <DatePicker />
         </Form.Item>
         <Form.Item label="地址" name="address" {...formItemLayout}>
-          <TextArea rows={3} placeholder={'请输入联系地址'}/>
+          <TextArea rows={3} placeholder={"请输入联系地址"} />
         </Form.Item>
       </Form>
     );

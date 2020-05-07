@@ -18,3 +18,4 @@ export const getUserList = params => Http.get({url: '/user/list', data: params})
 export const deleteUser = params => Http.get({url: '/user/delete', data: params});
 export const editUser = params => Http.get({url: '/user/edit', data: params});
 export const addUser = params => Http.get({url: '/user/add', data: params});
+export const getBikeList = params => Http.get({url: '/map/bike_list', data: params});
