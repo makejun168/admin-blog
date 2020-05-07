@@ -31,7 +31,6 @@ import Permission from "../pages/Permission";
 import Bicycle from "../pages/Bicycle";
 import Employment from "../pages/Employment";
 import Editors from "../pages/Editors";
-import Chart from "../pages/Chart";
 import Common from "../Common";
 import Bar from "../pages/Chart/Bar";
 import Cake from "../pages/Chart/Cake";
