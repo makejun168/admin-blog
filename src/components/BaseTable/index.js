@@ -29,7 +29,6 @@ export default class BaseTable extends React.Component {
   };
   tableInit = () => {
     const { columns, dataSource, pagination, selectedRowKeys } = this.props;
-    console.log(selectedRowKeys);
     let rowSelectionType = this.props.rowSelectionType;
     let ROW_SELECTIONS = {
       type: "radio",
