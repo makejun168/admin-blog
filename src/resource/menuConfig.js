@@ -99,7 +99,21 @@ const menuList = [
   },
   {
     title: "Chart",
-    key: "/admin/chart"
+    key: "/admin/chart",
+    children: [
+      {
+        title: "Cake",
+        key: "/admin/chart/cake",
+      },
+      {
+        title: "Bar",
+        key: "/admin/chart/bar",
+      },
+      {
+        title: "List",
+        key: "/admin/chart/list",
+      }
+    ]
   },
   {
     title: "Permissions",

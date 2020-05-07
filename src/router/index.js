@@ -33,6 +33,9 @@ import Employment from "../pages/Employment";
 import Editors from "../pages/Editors";
 import Chart from "../pages/Chart";
 import Common from "../Common";
+import Bar from "../pages/Chart/Bar";
+import Cake from "../pages/Chart/Cake";
+import List from "../pages/Chart/List";
 
 export default class IRouter extends React.Component {
 	render() {
@@ -117,7 +120,9 @@ export default class IRouter extends React.Component {
 										path="/admin/editor"
 										component={Editors}
 									/>
-									<Route exact={true} path="/admin/chart" component={Chart} />
+									<Route exact={true} path="/admin/chart/bar" component={Bar} />
+									<Route exact={true} path="/admin/chart/cake" component={Cake} />
+									<Route exact={true} path="/admin/chart/list" component={List} />
 									<Route exact={true} path="/admin/city" component={City} />
 									<Route exact={true} path="/admin/order" component={Order} />
 									<Route
