@@ -17,7 +17,7 @@ export default {
       "-" +
       (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
       " " +
-      date.getHours() +
+      (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) +
       ":" +
       (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) +
       ":" +
@@ -54,7 +54,7 @@ export default {
   },
   updateSelectedItem(selectedRowKeys) {
     this.setState({
-      selectedRowKeys
-    })
-  }
+      selectedRowKeys,
+    });
+  },
 };
