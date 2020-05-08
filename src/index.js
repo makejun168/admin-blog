@@ -7,9 +7,15 @@ import './common/index.less';
 // import MyRouter from './pages/router_demo2/router'
 import IRouter from './router'
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import configureStore from '../src/redux/store';
+
+const store = configureStore();
 
 ReactDOM.render(
-  <IRouter />,
+  <Provider store={store}>
+    <IRouter />
+  </Provider>,
   document.getElementById('root')
 );
 
