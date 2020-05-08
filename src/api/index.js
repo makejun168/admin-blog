@@ -22,3 +22,5 @@ export const getBikeList = params => Http.get({url: '/map/bike_list', data: para
 export const getRoleList = params => Http.get({url: '/role/list', data: params});
 export const roleCreate = params => Http.get({url: '/role/create', data: params});
 export const roleEdit = params => Http.get({url: '/permission/edit', data: params});
+export const getRoleUserList = params => Http.get({url: '/role/user_list', data: params});
+export const editRoleUser = params => Http.get({url: '/role/user_role_edit', data: params});

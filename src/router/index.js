@@ -1,9 +1,9 @@
 import React from "react";
 import {
-	HashRouter as Router,
-	Route,
-	Switch,
-	// Redirect,
+  HashRouter as Router,
+  Route,
+  Switch,
+  Redirect,
 } from "react-router-dom";
 import App from "../App";
 import Login from "../pages/Login";
@@ -37,124 +37,122 @@ import Cake from "../pages/Chart/Cake";
 import List from "../pages/Chart/List";
 
 export default class IRouter extends React.Component {
-	render() {
-		return (
-			<Router>
-				<App>
-					<Route path="/login" component={Login} />
-					<Route
-						path="/admin"
-						render={() => (
-							<Admin>
-								<Switch>
-									<Route exact={true} path="/admin/home" component={Home} />
-									<Route
-										exact={true}
-										path="/admin/ui/buttons"
-										component={Buttons}
-									/>
-									<Route
-										exact={true}
-										path="/admin/ui/loadings"
-										component={LoadingContainer}
-									/>
-									<Route
-										exact={true}
-										path="/admin/ui/modals"
-										component={ModalContainer}
-									/>
-									<Route
-										exact={true}
-										path="/admin/ui/notification"
-										component={Notice}
-									/>
-									<Route
-										exact={true}
-										path="/admin/ui/messages"
-										component={Message}
-									/>
-									<Route exact={true} path="/admin/ui/tab" component={Tab} />
-									<Route
-										exact={true}
-										path="/admin/ui/gallery"
-										component={Gallery}
-									/>
-									<Route
-										exact={true}
-										path="/admin/ui/carousel"
-										component={Carousels}
-									/>
-									<Route
-										exact={true}
-										path="/admin/form/login"
-										component={FormLogin}
-									/>
-									<Route
-										exact={true}
-										path="/admin/form/detail"
-										component={FormLoginDetail}
-									/>
-									<Route
-										exact={true}
-										path="/admin/form/loginInline"
-										component={FormLoginInLine}
-									/>
-									<Route
-										exact={true}
-										path="/admin/form/register"
-										component={FormRegister}
-									/>
-									<Route
-										exact={true}
-										path="/admin/table/basic"
-										component={BasicTable}
-									/>
-									<Route
-										exact={true}
-										path="/admin/table/hight"
-										component={HightTable}
-									/>
-									<Route
-										exact={true}
-										path="/admin/editor"
-										component={Editors}
-									/>
-									<Route exact={true} path="/admin/chart/bar" component={Bar} />
-									<Route exact={true} path="/admin/chart/cake" component={Cake} />
-									<Route exact={true} path="/admin/chart/list" component={List} />
-									<Route exact={true} path="/admin/city" component={City} />
-									<Route exact={true} path="/admin/order" component={Order} />
-									<Route
-										exact={true}
-										path="/admin/employment"
-										component={Employment}
-									/>
-									<Route
-										exact={true}
-										path="/admin/Bicycle"
-										component={Bicycle}
-									/>
-									<Route
-										exact={true}
-										path="/admin/permissions"
-										component={Permission}
-									/>
-									<Route component={NoMatch} />
-								</Switch>
-							</Admin>
-						)}
-					/>
-					<Route
-						path="/common"
-						render={() => (
-							<Common>
-								<Route path="/common/order/detail/:orderId" component={Detail} />
-							</Common>
-						)}
-					/>
-					{/* <Redirect to={"/admin/home"} /> */}
-				</App>
-			</Router>
-		);
-	}
+  render() {
+    return (
+      <Router>
+        <App>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route
+              path="/common"
+              render={() => (
+                <Common>
+                  <Route
+                    exact
+                    path="/common/order/detail/:orderId"
+                    component={Detail}
+                  />
+                </Common>
+              )}
+            />
+            <Route
+              path="/"
+              render={() => (
+                <Admin>
+                  <Switch>
+                    <Route exact={true} path="/home" component={Home} />
+                    <Route
+                      exact={true}
+                      path="/ui/buttons"
+                      component={Buttons}
+                    />
+                    <Route
+                      exact={true}
+                      path="/ui/loadings"
+                      component={LoadingContainer}
+                    />
+                    <Route
+                      exact={true}
+                      path="/ui/modals"
+                      component={ModalContainer}
+                    />
+                    <Route
+                      exact={true}
+                      path="/ui/notification"
+                      component={Notice}
+                    />
+                    <Route
+                      exact={true}
+                      path="/ui/messages"
+                      component={Message}
+                    />
+                    <Route exact={true} path="/ui/tabs" component={Tab}/>
+                    <Route
+                      exact={true}
+                      path="/ui/gallery"
+                      component={Gallery}
+                    />
+                    <Route
+                      exact={true}
+                      path="/ui/carousel"
+                      component={Carousels}
+                    />
+                    <Route
+                      exact={true}
+                      path="/form/login"
+                      component={FormLogin}
+                    />
+                    <Route
+                      exact={true}
+                      path="/form/detail"
+                      component={FormLoginDetail}
+                    />
+                    <Route
+                      exact={true}
+                      path="/form/loginInline"
+                      component={FormLoginInLine}
+                    />
+                    <Route
+                      exact={true}
+                      path="/form/register"
+                      component={FormRegister}
+                    />
+                    <Route
+                      exact={true}
+                      path="/table/basic"
+                      component={BasicTable}
+                    />
+                    <Route
+                      exact={true}
+                      path="/table/hight"
+                      component={HightTable}
+                    />
+                    <Route exact={true} path="/editor" component={Editors} />
+                    <Route exact={true} path="/chart/bar" component={Bar} />
+                    <Route exact={true} path="/chart/cake" component={Cake} />
+                    <Route exact={true} path="/chart/list" component={List} />
+                    <Route exact={true} path="/city" component={City} />
+                    <Route exact={true} path="/order" component={Order} />
+                    <Route
+                      exact={true}
+                      path="/employment"
+                      component={Employment}
+                    />
+                    <Route exact={true} path="/Bicycle" component={Bicycle} />
+                    <Route
+                      exact={true}
+                      path="/permissions"
+                      component={Permission}
+                    />
+                    <Route component={NoMatch} />
+                  </Switch>
+                </Admin>
+              )}
+            />
+          </Switch>
+          <Redirect to="/home" />
+        </App>
+      </Router>
+    );
+  }
 }

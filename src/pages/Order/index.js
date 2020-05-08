@@ -111,15 +111,14 @@ export default class Order extends React.Component {
   };
 
   openOrderDetail = () => {
-    console.log(this.state.selectedRow);
-    const { id } = this.state.selectedRow[0];
-    if (id === null) {
+    if (!this.state.selectedRowKeys) {
       Modal.info({
         title: "提示",
         content: "请选择一条订单进行结束",
       });
       return;
     }
+    let id = this.state.selectedRowKeys[0];
     window.location.href = `#/common/order/detail/${id}`;
   };
 

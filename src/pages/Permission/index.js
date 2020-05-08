@@ -1,8 +1,24 @@
 import React from "react";
-import { Card, Button, Modal, Form, Select, Input, message, Tree } from "antd";
+import {
+  Card,
+  Button,
+  Modal,
+  Form,
+  Select,
+  Input,
+  message,
+  Tree,
+  Transfer,
+} from "antd";
 import BaseTable from "../../components/BaseTable";
 import util from "../../utils/util";
-import { getRoleList, roleCreate, roleEdit } from "../../api";
+import {
+  getRoleList,
+  roleCreate,
+  roleEdit,
+  getRoleUserList,
+  editRoleUser,
+} from "../../api";
 import { TreeNode } from "antd/lib/tree-select";
 import menuConfig from "../../resource/menuConfig";
 
@@ -14,7 +30,10 @@ export default class Permission extends React.Component {
     selectedRowKeys: null,
     visible: false,
     settingVisible: false,
+    roleVisible: false,
     menus: [],
+    mockData: [],
+    targetKeys: [],
   };
 
   formList = [
@@ -38,7 +57,6 @@ export default class Permission extends React.Component {
 
   request = () => {
     getRoleList().then((res) => {
-      // console.log(res);
       if (res.code === 0) {
         this.setState({
           list: res.result.item_list,
@@ -53,7 +71,6 @@ export default class Permission extends React.Component {
 
   saveFormRef = (formRef) => {
     this.modalForm = formRef;
-    // console.log(this.modalForm);
   };
 
   saveSettingForm = (formRef) => {
@@ -64,14 +81,29 @@ export default class Permission extends React.Component {
     this.setState({
       visible: target,
       settingVisible: target,
+      roleVisible: target,
+    });
+  };
+
+  // 确定角色管理按钮
+  handleRoleSubmit = () => {
+    let data = {};
+    data.user_ids = this.state.targetKeys;
+    data.role_id = this.state.selectedRowKeys[0];
+    editRoleUser(data).then((res) => {
+      console.log(res);
+      message.success("编辑成功");
+      this.handleVisible(false);
+      this.request();
     });
   };
 
   handleEditPerSubmit = () => {
-    let data = {...this.settingForm.formRef.current.getFieldValue(), menu: this.state.menus};
-    console.log(data);
-    roleEdit({...data}).then((res) => {
-      // console.log(res);
+    let data = {
+      ...this.settingForm.formRef.current.getFieldValue(),
+      menu: this.state.menus,
+    };
+    roleEdit({ ...data }).then((res) => {
       this.settingForm.formRef.current.resetFields();
       message.success("编辑成功");
       this.handleVisible(false);
@@ -80,10 +112,8 @@ export default class Permission extends React.Component {
   };
 
   handleSubmit = () => {
-    // console.log(this.modalForm.formRef.current.getFieldValue());
     let data = this.modalForm.formRef.current.getFieldValue();
     roleCreate(data).then((res) => {
-      console.log(res);
       if (res.code === 0) {
         this.modalForm.formRef.current.resetFields();
         message.success("创建成功");
@@ -104,11 +134,12 @@ export default class Permission extends React.Component {
   // 设置权限
   handleSetting = () => {
     if (this.validateItem()) {
-      this.handleVisible(true);
+      this.setState({
+        settingVisible: true,
+      });
       const current = this.state.list.find(
         (item) => item.id === this.state.selectedRowKeys[0]
       );
-      // console.log(current);
       this.setState({
         menus: current.menus,
       });
@@ -117,6 +148,36 @@ export default class Permission extends React.Component {
         status: current.status,
       });
     }
+  };
+
+  //分配用户权限
+  handleUserAuth = () => {
+    if (this.validateItem()) {
+      let id = this.state.selectedRowKeys[0];
+      this.getRoleList(id);
+      this.setState({
+        roleVisible: true,
+      });
+    }
+  };
+
+  // 查询用户的角色信息
+  getRoleList = (id) => {
+    getRoleUserList({ id }).then((res) => {
+      console.log(res);
+      const mockData = res.result.map((item) => ({
+        key: item.user_id,
+        title: item.user_name,
+        status: item.status,
+      }));
+      const targetKeys = mockData
+        .filter((item) => +item.status === 0)
+        .map((item) => item.key);
+      this.setState({
+        mockData,
+        targetKeys: targetKeys,
+      });
+    });
   };
 
   // 设置menuInfo
@@ -150,11 +211,20 @@ export default class Permission extends React.Component {
     return (
       <div style={{ width: "100%" }}>
         <Card className="card-wrap" title="Permission">
-          <Button type="primary" onClick={() => this.handleVisible(true)}>
+          <Button
+            type="primary"
+            onClick={() =>
+              this.setState({
+                visible: true,
+              })
+            }
+          >
             创建角色
           </Button>
           <Button onClick={this.handleSetting}>设置权限</Button>
-          <Button>用户授权</Button>
+          <Button type="danger" onClick={this.handleUserAuth}>
+            用户授权
+          </Button>
         </Card>
         <Card>
           <BaseTable
@@ -197,7 +267,51 @@ export default class Permission extends React.Component {
             ref={this.saveSettingForm}
           />
         </Modal>
+        <Modal
+          forceRender
+          title={"角色管理"}
+          visible={this.state.roleVisible}
+          onOk={this.handleRoleSubmit}
+          onCancel={() => {
+            this.handleVisible(false);
+          }}
+        >
+          <TransferForm
+            patchUserInfo={(targetKeys) => {
+              this.setState({
+                targetKeys,
+              });
+            }}
+            mockData={this.state.mockData}
+            targetKeys={this.state.targetKeys}
+          />
+        </Modal>
       </div>
+    );
+  }
+}
+
+class TransferForm extends React.Component {
+  handleChange = (nextTargetKeys, direction, moveKeys) => {
+    this.props.patchUserInfo(nextTargetKeys);
+    console.log("targetKeys: ", nextTargetKeys);
+    console.log("direction: ", direction);
+    console.log("moveKeys: ", moveKeys);
+  };
+
+  render() {
+    const { targetKeys, mockData } = this.props;
+    // console.log(targetKeys);
+    return (
+      <Transfer
+        listStyle={{ width: 200, height: 400 }}
+        dataSource={mockData}
+        targetKeys={targetKeys}
+        titles={["待选用户", "已选用户"]}
+        onChange={this.handleChange}
+        // onSelectChange={this.handleSelectChange}
+        render={(item) => item.title}
+      />
     );
   }
 }
@@ -272,7 +386,12 @@ class UserForm extends React.Component {
     };
     return (
       <Form layout="horizontal" ref={this.formRef}>
-        <Form.Item id="role" label="角色名称" name="roleName" {...formItemLayout}>
+        <Form.Item
+          id="role"
+          label="角色名称"
+          name="roleName"
+          {...formItemLayout}
+        >
           <Input placeholder={"请输入用户名"}></Input>
         </Form.Item>
         <Form.Item label="状态" name="status" {...formItemLayout}>
