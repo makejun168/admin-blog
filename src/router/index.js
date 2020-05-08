@@ -55,12 +55,12 @@ export default class IRouter extends React.Component {
 									/>
 									<Route
 										exact={true}
-										path="/admin/ui/loading"
+										path="/admin/ui/loadings"
 										component={LoadingContainer}
 									/>
 									<Route
 										exact={true}
-										path="/admin/ui/modal"
+										path="/admin/ui/modals"
 										component={ModalContainer}
 									/>
 									<Route
@@ -70,7 +70,7 @@ export default class IRouter extends React.Component {
 									/>
 									<Route
 										exact={true}
-										path="/admin/ui/message"
+										path="/admin/ui/messages"
 										component={Message}
 									/>
 									<Route exact={true} path="/admin/ui/tab" component={Tab} />

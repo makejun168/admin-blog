@@ -1,123 +1,123 @@
 const menuList = [
   {
     title: "Home",
-    key: "/admin/home",
+    key: "/home",
   },
   {
     title: "UI",
-    key: "/admin/ui",
+    key: "/ui",
     children: [
       {
         title: "Button",
-        key: "/admin/ui/buttons",
+        key: "/ui/buttons",
       },
       {
         title: "Modal",
-        key: "/admin/ui/modal",
+        key: "/ui/modals",
       },
       {
         title: "Loading",
-        key: "/admin/ui/loading",
+        key: "/ui/loadings",
       },
       {
         title: "Notification",
-        key: "/admin/ui/notification",
+        key: "/ui/notification",
       },
       {
         title: "Message",
-        key: "/admin/ui/message",
+        key: "/ui/messages",
       },
       {
         title: "Tabs",
-        key: "/admin/ui/tab",
+        key: "/ui/tabs",
       },
       {
         title: "gallery",
-        key: "/admin/ui/gallery",
+        key: "/ui/gallery",
       },
       {
         title: "carousel",
-        key: "/admin/ui/carousel",
+        key: "/ui/carousel",
       },
     ],
   },
   {
     title: "Form",
-    key: "/admin/form",
+    key: "/form",
     children: [
       {
         title: "Login",
-        key: "/admin/form/login",
+        key: "/form/login",
       },
       {
         title: "formDiff",
-        key: "/admin/form/detail",
+        key: "/form/detail",
       },
       {
         title: "Register",
-        key: "/admin/form/register",
+        key: "/form/register",
       },
       {
         title: "loginInline",
-        key: "/admin/form/loginInline",
+        key: "/form/loginInline",
       },
     ],
   },
   {
     title: "Table",
-    key: "/admin/table",
+    key: "/table",
     children: [
       {
         title: "Table",
-        key: "/admin/table/basic",
+        key: "/table/basic",
       },
       {
         title: "High",
-        key: "/admin/table/hight",
+        key: "/table/hight",
       },
     ],
   },
   {
     title: "Editor",
-    key: "/admin/editor",
+    key: "/editor",
   },
   {
     title: "City",
-    key: "/admin/city",
+    key: "/city",
   },
   {
     title: "Order",
-    key: "/admin/order",
+    key: "/order",
   },
   {
     title: "Employment",
-    key: "/admin/employment",
+    key: "/employment",
   },
   {
     title: "Bicycle",
-    key: "/admin/bicycle",
+    key: "/bicycle",
   },
   {
     title: "Chart",
-    key: "/admin/chart",
+    key: "/chart",
     children: [
       {
         title: "Cake",
-        key: "/admin/chart/cake",
+        key: "/chart/cake",
       },
       {
         title: "Bar",
-        key: "/admin/chart/bar",
+        key: "/chart/bar",
       },
       {
         title: "List",
-        key: "/admin/chart/list",
+        key: "/chart/list",
       }
     ]
   },
   {
     title: "Permissions",
-    key: "/admin/permissions",
+    key: "/permissions",
   },
 ];
 
