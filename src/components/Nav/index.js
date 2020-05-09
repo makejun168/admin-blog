@@ -66,4 +66,10 @@ class Nav extends React.Component {
   }
 }
 
-export default connect()(Nav);
+const mapStateToProps = (state) => {
+  return {
+    // menuName: state.menuName
+  };
+};
+
+export default connect(mapStateToProps)(Nav);

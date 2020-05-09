@@ -8,9 +8,7 @@ import './common/index.less';
 import IRouter from './router'
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import configureStore from '../src/redux/store';
-
-const store = configureStore();
+import store from './redux/store/configureStore';
 
 ReactDOM.render(
   <Provider store={store}>

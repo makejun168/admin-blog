@@ -70,7 +70,7 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    // menuName: state.menuName
+    menuName: state.menuName
   };
 };
 
