@@ -1,5 +1,3 @@
-
-
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
@@ -372,7 +370,6 @@ module.exports = function(webpackEnv) {
                 customize: require.resolve(
                   'babel-preset-react-app/webpack-overrides'
                 ),
-                
                 plugins: [
                   ["import", { libraryName: "antd", style: true }],
                   [
