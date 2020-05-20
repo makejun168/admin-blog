@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import './common/index.less';
 // import Admin from './admin';
 // import Home from './pages/router_demo/Home'

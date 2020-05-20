@@ -3,7 +3,7 @@
 
 import Http from '../common/Request'
 
-export const getWeatherData = Http.jsonp({url: 'http://api.map.baidu.com/telematics/v3/weather?district_id=440100&output=all&ak=azXMfuFQMErXF6GjYEFnDnefakKjtis8'});
+export const getWeatherData = Http.jsonp({url: 'https://api.map.baidu.com/telematics/v3/weather?district_id=440100&output=all&ak=azXMfuFQMErXF6GjYEFnDnefakKjtis8'});
 
 export const getTableList = params => Http.get({url: '/table/list', data: params});
 
